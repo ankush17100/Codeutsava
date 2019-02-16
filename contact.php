@@ -119,5 +119,12 @@
 <button type="submit" class="btn btn-primary" align="center">Sign In</button></div></div>
 </form>
 </div>
+
+    </div>
+  </div>
+  </div>
+  </div>
+
+
   <!-- *****************************************************************************************************************
 <?php include('includes/footer.php') ?>
