@@ -41,6 +41,7 @@
   <script src="lib/hover/hoverex.min.js"></script>
 
   <script src="js/main.js"></script>
+
   <script>
     $(document).ready(function () {
     var counter = 0;
@@ -53,7 +54,7 @@
         cols += '<td><input type="text" class="form-control" name="mail' + counter + '"/></td>';
         cols += '<td><input type="text" class="form-control" name="phone' + counter + '"/></td>';
 
-        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
+        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td></tr>';
         newRow.append(cols);
         $("table.order-list").append(newRow);
         counter++;
