@@ -92,6 +92,7 @@
                     
                  );";
         
+        
         $res = mysqli_query($conn2, $query);
         if($res)
             echo "<br>Table startup_applications created</br>";
@@ -104,10 +105,10 @@
                     application_id INT(255),
                     FOREIGN KEY (application_id) REFERENCES startup_applications(application_id),
                     full_name VARCHAR(255) NOT NULL,
-                    contact_number VARCHAR(20),
-                    address TEXT NOT NULL
+                    contact_number VARCHAR(20)
                     
                  );";
+        
         
         $res = mysqli_query($conn2, $query);
         if($res)
@@ -130,6 +131,7 @@
                     selected VARCHAR(10) NOT NULL
                     
                  );";
+        
         
         $res = mysqli_query($conn2, $query);
         if($res)

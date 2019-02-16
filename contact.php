@@ -43,20 +43,20 @@
     <thead>
         <tr>
             <td class="col-sm-1">Name</td>
-            <td class="col-sm-1">Gmail</td>
+            <td class="col-sm-1">Email</td>
             <td class="col-sm-1">Phone</td>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td class="col-sm-1">
-                <input type="text" name="name" class="form-control" />
+                <input type="text" name="name[]" class="form-control" />
             </td>
             <td class="col-sm-1">
-                <input type="mail" name="mail"  class="form-control"/>
+                <input type="mail" name="mail[]"  class="form-control"/>
             </td>
             <td class="col-sm-1">
-                <input type="text" name="phone"  class="form-control"/>
+                <input type="text" name="phone[]"  class="form-control"/>
             </td>
             <td class="col-sm-1"><a class="deleteRow"></a>
 
@@ -74,10 +74,6 @@
     </tfoot>
 </table>
 </div>
-
-
-  
-   
 
     <div class="form-group">
       <label for="description" class="col-sm-2 control-label" id="t">Description </label>
@@ -103,7 +99,13 @@
           <input type="text" class="form-control" id="number" placeholder="Enter contact number" required>
         </div>
     </div>
-
+    
+    <div class="form-group">
+      <label for="category" class="col-sm-2 control-label" id="l">Category of Startup: </label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="category" placeholder="Category" required>
+        </div>
+    </div>
 
     <div class="form-group">
       <label for="resume" class="col-sm-2 control-label" id="l">Detailed Presentation</label>
@@ -132,10 +134,10 @@
       <label for="Expected_seed" class="col-sm-2 control-label" id="l">Expected seed fund range</label>
         <div class="col-sm-10">
           <select class="form-control" id="expected_seed" placeholder="Enter the seed fund you are expecting from us" required>
-      <option>10000-20000</option>
-      <option>20000-50000</option>
-      <option>50000-1 lacs</option>
-      <option>>1 lacs</option>
+      <option>Rs.10,000-Rs.20,000</option>
+      <option>Rs.20,000-Rs.50,000</option>
+      <option>Rs.50,000-Rs.1 lacs</option>
+      <option>>Rs1 lacs</option>
       </select>
 
         </div>
