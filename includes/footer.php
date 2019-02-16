@@ -23,31 +23,13 @@
           <h4>Our Address</h4>
           <div class="hline-w"></div>
           <p>
-            Some Ave, 987,<br/> 23890, New York,<br/> United States.<br/>
+            City centre mall<br/> 492001, Raipur<br/> Chhattisgarh, India<br/>
           </p>
         </div>
 
       </div>
     </div>
   </div>
-
-  <div id="copyrights">
-    <div class="container">
-      <p>
-        &copy; Copyrights <strong>Solid</strong>. All Rights Reserved
-      </p>
-      <div class="credits">
-        <!--
-          You are NOT allowed to delete the credit link to TemplateMag with free version.
-          You can delete the credit link only if you bought the pro version.
-          Buy the pro version with working PHP/AJAX contact form: https://templatemag.com/solid-bootstrap-business-template/
-          Licensing information: https://templatemag.com/license/
-        -->
-        Created with Solid template by <a href="https://templatemag.com/">TemplateMag</a>
-      </div>
-    </div>
-  </div>
-  <!-- / copyrights -->
 
   <!-- JavaScript Libraries -->
   <script src="lib/jquery/jquery.min.js"></script>
@@ -58,8 +40,50 @@
   <script src="lib/hover/hoverdir.js"></script>
   <script src="lib/hover/hoverex.min.js"></script>
 
-  <!-- Template Main Javascript File -->
   <script src="js/main.js"></script>
+  <script>
+    $(document).ready(function () {
+    var counter = 0;
+
+    $("#addrow").click(function () {
+        var newRow = $("<tr>");
+        var cols = "";
+
+        cols += '<td><input type="text" class="form-control" name="name' + counter + '"/></td>';
+        cols += '<td><input type="text" class="form-control" name="mail' + counter + '"/></td>';
+        cols += '<td><input type="text" class="form-control" name="phone' + counter + '"/></td>';
+
+        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
+        newRow.append(cols);
+        $("table.order-list").append(newRow);
+        counter++;
+    });
+
+
+
+    $("table.order-list").on("click", ".ibtnDel", function (event) {
+        $(this).closest("tr").remove();       
+        counter -= 1
+    });
+
+
+});
+
+
+
+function calculateRow(row) {
+    var price = +row.find('input[name^="price"]').val();
+
+}
+
+function calculateGrandTotal() {
+    var grandTotal = 0;
+    $("table.order-list").find('input[name^="price"]').each(function () {
+        grandTotal += +$(this).val();
+    });
+    $("#grandtotal").text(grandTotal.toFixed(2));
+}
+</script>
 
 </body>
 </html>
