@@ -28,7 +28,7 @@
         <div class="panel-body">
 <div class="well" align="center" div class="col-sm-10"><strong>Startup Application Form</strong></div>
 <div class="container">
-  <form class="form-horizontal" role="form" method="post" onsubmit="display()">
+  <form class="form-horizontal" role="form" >
     <div class="form-group">
       <label for="Startupname" class="col-sm-2 control-label" id="f">Startup Name</label>
       <div class="col-sm-10">
@@ -82,7 +82,7 @@
     <div class="form-group">
       <label for="description" class="col-sm-2 control-label" id="t">Description </label>
         <div class="col-sm-10">
-          <textarea type="text" class="form-control" id="description" rows="8" placeholder="Enter startup description here"></textarea>
+          <textarea type="text" class="form-control" id="description" rows="8" placeholder="Enter startup description here" required></textarea>
         </div>
     </div>
     <div class="form-group">
@@ -108,7 +108,7 @@
     <div class="form-group">
       <label for="resume" class="col-sm-2 control-label" id="l">Detailed Presentation</label>
         <div class="col-sm-10">
-          <input type="file" class="form-control" id="resume" placeholder="Upload your presentation here">
+          <input type="file" class="form-control" id="resume" placeholder="Upload your presentation here" required>
         </div>
     </div>
     <div class="form-group">
@@ -150,7 +150,7 @@
 <div class="form-group">
 <div class="col-sm-offset-2 col-sm-10">
 <div class="checkbox">
-<label><input type="checkbox">Remember me</label>
+<label><input type="checkbox" required>Accept the terms and conditions</label>
 </div>
 </div>
 </div>
