@@ -60,6 +60,7 @@
         <p><u><h4>Past Experience</h4></u></p>
         <p class="des"><b>This includes the past experience of the startup.</b></p>
         <p><br/><a href="contact.html" class="btn btn-link" style="background-color:yellow;"><b>See Mentor</b></a></p>
+        <marquee style="background:yellow">This is for recent updates</marquee>
       </div>
     </div>
   </div>
