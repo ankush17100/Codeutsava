@@ -1,0 +1,5 @@
+{
+    "require": {
+        "sebastiansulinski/dotenv": "^2.0"
+    }
+}
