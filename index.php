@@ -11,9 +11,6 @@
           <h5>More Lorem Ipsum added here too.</h5>
           <button class="btn btn-success">Apply for Incubation</button>
         </div>
-        <div class="col-lg-8 col-lg-offset-2 himg">
-          <img src="img/browser.png" class="img-responsive">
-        </div>
       </div>
       <!-- /row -->
     </div>
