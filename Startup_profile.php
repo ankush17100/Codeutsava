@@ -124,7 +124,7 @@ session_start(); ?>
         
         <p class="des"><b>Selected:<?php echo $r['selected'] ?> &nbsp;&nbsp;&nbsp;</b></p>
       
-        
+        <a href="mentor_add.php">MENTORS LIST</a>
 <!--        <p><br/><a href="contact.html" class="btn btn-link" style="background-color:yellow;"><b>See Mentor</b></a></p>-->
 <!--        <marquee style="background:yellow">This is for recent updates</esentationmarquee>-->
       </div>
