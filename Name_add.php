@@ -1,3 +1,5 @@
+<?php ob_start(); session_start(); ?>
+<?php include('includes/db.php') ?>
 <?php include('includes/header.php') ?>
 
 <style>
@@ -29,7 +31,9 @@
 <div class="container mtb">
 <div class=big_card>
 	<div class=contain>
-		<h4 id=field>Startup name</h4>
+		<h4 id=field>Mentor name</h4>
+		<h4 id=field>Mentor name</h4>
+		<h4 id=field>Mentor name</h4>
 		 <button class="btn btn-primary" display="inline;" >Add</button>
 	</div>
 </div>

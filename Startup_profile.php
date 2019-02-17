@@ -1,4 +1,6 @@
 
+<?php ob_start();
+session_start(); ?>
 <?php include('includes/db.php') ?>
 <?php include('includes/header.php') ?>
 <style type="text/css">
@@ -40,8 +42,8 @@
      AGENCY ABOUT
      ***************************************************************************************************************** -->
 <?php
-    if(isset($_GET['st_id'])){
-        $startup_id =  mysqli_real_escape_string($conn,$_GET['st_id']);
+    if(isset($_SESSION['username']) && $_SESSION['role']=='startup'){
+        $startup_id =  mysqli_real_escape_string($conn,$_SESSION['startup_id']);
         
          $query = "SELECT * from startup_applications where application_id=$startup_id";
          $res = mysqli_query($conn,$query);
@@ -101,7 +103,7 @@
         
         <p><u><h4>DIPP NUMBER</h4></u></p>
         <p class="des"><b><?php echo $r['DIPP_NUMBER']?></b></p>
-        <p class="des"><b>Verified:<?php echo $r['startup_verified'] ?> &nbsp;&nbsp;&nbsp; <a href="Startup_description.php?verify=<?php echo $startup_id ?>">Verify</a></b></p>
+        <p class="des"><b>Verified:<?php echo $r['startup_verified'] ?> &nbsp;&nbsp;&nbsp; </b></p>
         
         <p><u><h4>Website</h4></u></p>
         <p class="des"><b><a href="<?php echo $r['startup_website_link'].'">'.$r['startup_website_link'] ?></a></b></p>
@@ -110,20 +112,18 @@
         <p class="des"><b><?php echo $r['startup_category']?></b></p>
         
         <p class="des"><b>Shortlisted:<?php echo $r['shortlisted'] ?> &nbsp;&nbsp;&nbsp;</b></p>
-        <?php if($r['shortlisted']=='NO' && $r['startup_verified']=='YES'){ ?>
-        <form action="Startup_description.php" method="post" >
-            <input type="date" name = "interview_date">
-            <input type="time" name = "interview_time">
-            <input type="text" name = "interview_venue" placeholder="Venue">
-            <input type="hidden" name="startup_id" value="<?php echo $startup_id ?>">
-            <input type="submit" name = "shortlist" value="Shortlist">
-        </form>
-        <?php }?>
+        
+        <p class="des"><b>INTERVIEW DATE:<?php echo $r['interview_date'] ?> &nbsp;&nbsp;&nbsp;</b></p>
+        
+        <p class="des"><b>INTERVIEW TIME:<?php echo $r['interview_time'] ?> &nbsp;&nbsp;&nbsp;</b></p>
+        
+        <p class="des"><b>INTERVIEW VENUE:<?php echo $r['interview_venu'] ?> &nbsp;&nbsp;&nbsp;</b></p>
+        
         <br>
         <br>
-        <?php if($r['shortlisted']=='YES'){ ?>
-        <p class="des"><b>Selected:<?php echo $r['selected'] ?> &nbsp;&nbsp;&nbsp; <a href="Startup_description.php?select=<?php echo $startup_id ?>">SELECT</a></b></p>
-        <?php }?>
+        
+        <p class="des"><b>Selected:<?php echo $r['selected'] ?> &nbsp;&nbsp;&nbsp;</b></p>
+      
         
 <!--        <p><br/><a href="contact.html" class="btn btn-link" style="background-color:yellow;"><b>See Mentor</b></a></p>-->
 <!--        <marquee style="background:yellow">This is for recent updates</esentationmarquee>-->
@@ -134,101 +134,7 @@
 <?php }
     }?>
     
-<?php
-    if(isset($_GET['verify'])){
-        $startup_id = $_GET['verify'];
-        $query = "UPDATE startup_applications SET startup_verified='YES'";
-        $res = mysqli_query($conn,$query);
-        unset($_GET['verify']);
-        if($res)
-            
-            header('Location: Startup_description.php?st_id='.$startup_id);
-        else
-            echo mysqli_error($conn);
-    }
 
-    if(isset($_GET['select'])){
-        $startup_id = $_GET['select'];
-        $query = "UPDATE startup_applications SET selected='YES' WHERE application_id = {$startup_id}";
-        $res = mysqli_query($conn,$query);
-        unset($_GET['select']);
-        if($res){
-            $query = "CREATE TABLE IF NOT EXISTS startup{$startup_id}_events(
-                    event_id INT(5) PRIMARY KEY NOT NULL,
-                    startup_id INT(5) NOT NULL,
-                    FOREIGN KEY (startup_id) REFERENCES startup_applications(application_id) ON DELETE CASCADE,
-                    investement INT(10) NOT NULL,
-                    date DATE NOT NULL,
-                    time TIME NOT NULL,
-                    venue VARCHAR(200),
-                    footfall INT(100),
-                    client_outreach INT(200)
-                    )";
-            $res = mysqli_query($conn,$query);
-            if(!$res){
-                echo "Error1";
-            }
-            
-            $query = "CREATE TABLE IF NOT EXISTS startup{$startup_id}_milestones(
-                    milestone_id INT(5) PRIMARY KEY NOT NULL,
-                    startup_id INT(5) NOT NULL,
-                    FOREIGN KEY (startup_id) REFERENCES startup_applications(application_id) ON DELETE CASCADE,
-                    statement TEXT NOT NULL,
-                    deadline DATE NOT NULL,
-                    status VARCHAR(50)
-                    )";
-            $res = mysqli_query($conn,$query);
-            if(!$res){
-                echo "Error2";
-            }
-            
-            $username = 'startup'.$startup_id;
-            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            $length = 10;
-            $charactersLength = strlen($characters);
-            $randomString = '';
-            for ($i = 0; $i < $length; $i++) {
-                $randomString .= $characters[rand(0, $charactersLength - 1)];
-            }
-            $password = $randomString;
-            
-            $query = "INSERT INTO startups_accounts (username, password, role, startup_id) VALUES(
-                        '$username','$password','startup',{$startup_id}      
-                    )";
-            
-            $res = mysqli_query($conn,$query);
-            if(!$res){
-                echo "Error3";
-            }
-            
-            
-            header('Location: Startup_description.php?st_id='.$startup_id);
-        }
-        else
-            echo mysqli_error($conn);
-    }
-
-
-    if(isset($_POST['shortlist'])){
-        $startup_id = $_POST['startup_id'];
-        $interview_date = $_POST['interview_date'];
-        $interview_time = $_POST['interview_time'];
-        $interview_venu = $_POST['interview_venue'];
-        $query = "UPDATE startup_applications SET shortlisted='YES', interview_date = '{$interview_date}', interview_time='{$interview_time}', 
-            interview_venu = '{$interview_venu}' ";
-        $res = mysqli_query($conn,$query);
-        if($res){
-            unset($_POST['shortlist']);
-            header('Location: Startup_description.php?st_id='.$startup_id);
-        }
-        else
-            echo mysqli_error($conn);
-    }
-
-    
-
-
-?> 
   
 
 <?php include('includes/footer.php') ?>
