@@ -42,17 +42,16 @@
 
   <script>
     $(document).ready(function () {
-    var counter = 0;
+    var counter = 2;
 
     $("#addrow").click(function () {
         var newRow = $("<tr>");
-        var cols = "";
-
-        cols += '<td><input type="text" class="form-control" name="name' + counter + '"/></td>';
-        cols += '<td><input type="text" class="form-control" name="mail' + counter + '"/></td>';
-        cols += '<td><input type="text" class="form-control" name="phone' + counter + '"/></td>';
-
-        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td></tr>';
+        var cols = "Founder: "+counter+"<br>";
+        
+        cols += '<td class="col-sm-1"><input type="text" class="form-control" name="name[]" placeholder = "NAME"/>';
+        cols += '<input type="email" class="form-control" name="mail[]" placeholder="E-MAIL"/>';
+        cols += '<input type="text" class="form-control" name="phone[]" placeholder="CONTACT NUMBER"/>';
+        cols += '<input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
         newRow.append(cols);
         $("table.order-list").append(newRow);
         counter++;

@@ -1,6 +1,4 @@
 <?php
-    ob_start();
-    session_start();
     include('includes/db.php')
 ?>
 <?php 
@@ -70,8 +68,7 @@
                     )";
                 $res = mysqli_query($conn,$query);
                 if(!$res){
-                    die(mysqli_error($conn));
-                    
+                    die(mysqli_error($conn));  
                 }
             }
             header('Location: startup_application_submit.php');

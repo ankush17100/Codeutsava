@@ -1,7 +1,7 @@
 <?php 
     ob_start();
     session_start();
-    include('../includes/conf.php');
+    include('includes/conf.php');
     $host = getenv('HOST');
     $username = getenv('USERNAME');
     $password = getenv('PASSWORD');
@@ -41,7 +41,7 @@
         else
             echo "<br>".mysqli_error($conn2);
         
-        $query = "CREATE TABLE IF NOT EXISTS starups_accounts (
+        $query = "CREATE TABLE IF NOT EXISTS startups_accounts (
                     user_id INT(255) PRIMARY KEY AUTO_INCREMENT NOT NULL,
                     username VARCHAR(32) UNIQUE NOT NULL,
                     password VARCHAR(255) NOT NULL,
@@ -74,13 +74,14 @@
                     startup_email varchar(255) NOT NULL UNIQUE,
                     startup_contact varchar(20) NOT NULL UNIQUE,
                     startup_description TEXT NOT NULL,
-                    startup_seed_fund INT(10) NOT NULL,
+                    startup_seed_fund VARCHAR(100) NOT NULL,
                     startup_website_link VARCHAR(100),
                     startup_past_experience TEXT NOT NULL,
-                    startup_years_experience INT(10) NOT NULL,
+                    startup_years_experience VARCHAR(100) NOT NULL,
                     startup_proposal_link TEXT NOT NULL,
                     startup_presentation_link TEXT NOT NULL,
                     shortlisted VARCHAR(5) NOT NULL,
+                    startup_category VARCHAR(200) NOT NULL,
                     application_date DATETIME NOT NULL,
                     startup_verified VARCHAR(5) NOT NULL,
                     DIPP_NUMBER VARCHAR(100) NOT NULL,
@@ -103,9 +104,10 @@
                     
                     founders_id INT(255) PRIMARY KEY AUTO_INCREMENT NOT NULL,
                     application_id INT(255),
-                    FOREIGN KEY (application_id) REFERENCES startup_applications(application_id),
+                    FOREIGN KEY (application_id) REFERENCES startup_applications(application_id) ON DELETE CASCADE,
                     full_name VARCHAR(255) NOT NULL,
-                    contact_number VARCHAR(20)
+                    contact_number VARCHAR(20) NOT NULL,
+                    email VARCHAR(255) NOT NULL
                     
                  );";
         
@@ -139,7 +141,7 @@
         else
             echo "<br>".mysqli_error($conn2);
         
-        header('Location: ../init_config/create_admin.php');
+        include('init_config/create_admin.php');
         
         
         

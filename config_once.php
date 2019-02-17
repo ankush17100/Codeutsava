@@ -37,7 +37,7 @@
                     fwrite($env_file,$user_password);
                     fwrite($env_file,$db_name);
                     fclose($env_file);
-                    header('Location: init_config/create_req.php');
+                    include('init_config/create_req.php');
                     
                     }
                 }else{

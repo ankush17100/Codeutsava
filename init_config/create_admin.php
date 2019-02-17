@@ -1,7 +1,7 @@
 <?php
     ob_start();
     session_start();
-    include('../includes/db.php'); 
+    include('includes/db.php'); 
 ?>
 <form action="" method="POST">
     <input type="Name" name = "name" placeholder="Name"><br>
@@ -30,6 +30,7 @@
         $res = mysqli_query($conn,$query);
         if($res){
             echo "User Created";
+            header('Location:index.php');
         }
     }
 ?>
