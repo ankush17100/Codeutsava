@@ -1,3 +1,4 @@
+<?php include('includes/db.php'); ?>
 <?php include('includes/header.php') ?>
 <style type="text/css">
     .des{
@@ -33,7 +34,9 @@
     <!-- /container -->
   </div>
   <!-- /blue -->
-
+<?php 
+    $query = "SELECT * FROM startup_applications";
+?>
 
   <!-- *****************************************************************************************************************
      AGENCY ABOUT
