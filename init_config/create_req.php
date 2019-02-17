@@ -45,7 +45,6 @@
                     user_id INT(255) PRIMARY KEY AUTO_INCREMENT NOT NULL,
                     username VARCHAR(32) UNIQUE NOT NULL,
                     password VARCHAR(255) NOT NULL,
-                    
                     role VARCHAR(25) NOT NULL);";
         
         $res = mysqli_query($conn2, $query);

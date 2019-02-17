@@ -18,7 +18,7 @@
 <div id="blue">
     <div class="container">
         <div class="row">
-            <h3>Startup Applications</h3>
+            <h3>Startup Applications Lists</h3>
         </div>
         <!-- /row -->
     </div>

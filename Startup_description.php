@@ -35,9 +35,6 @@
     <!-- /container -->
   </div>
   <!-- /blue -->
-<?php 
-    $query = "SELECT * FROM startup_applications";
-?>
 
   <!-- *****************************************************************************************************************
      AGENCY ABOUT
@@ -152,11 +149,61 @@
 
     if(isset($_GET['select'])){
         $startup_id = $_GET['select'];
-        $query = "UPDATE startup_applications SET selected='YES'";
+        $query = "UPDATE startup_applications SET selected='YES' WHEREE startup_id = {$startup_id}";
         $res = mysqli_query($conn,$query);
         unset($_GET['select']);
-        if($res)
+        if($res){
+            $query = "CREATE TABLE IF NOT EXISTS startup{$startup_id}_events(
+                    event_id INT(5) PRIMARY KEY NOT NULL,
+                    startup_id INT(5) NOT NULL,
+                    FOREIGN KEY (startup_id) REFERENCES startup_applications(application_id) ON DELETE CASCADE,
+                    investement INT(10) NOT NULL,
+                    date DATE NOT NULL,
+                    time TIME NOT NULL,
+                    venue VARCHAR(200),
+                    footfall INT(100),
+                    client_outreach INT(200)
+                    )";
+            $res = mysqli_query($conn,$query);
+            if(!$res){
+                echo "Error1";
+            }
+            
+            $query = "CREATE TABLE IF NOT EXISTS startup{$startup_id}_milestones(
+                    milestone_id INT(5) PRIMARY KEY NOT NULL,
+                    startup_id INT(5) NOT NULL,
+                    FOREIGN KEY (startup_id) REFERENCES startup_applications(application_id) ON DELETE CASCADE,
+                    statement TEXT NOT NULL,
+                    deadline DATE NOT NULL,
+                    status VARCHAR(50)
+                    )";
+            $res = mysqli_query($conn,$query);
+            if(!$res){
+                echo "Error2";
+            }
+            
+            $username = 'startup'.$startup_id;
+            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $length = 10;
+            $charactersLength = strlen($characters);
+            $randomString = '';
+            for ($i = 0; $i < $length; $i++) {
+                $randomString .= $characters[rand(0, $charactersLength - 1)];
+            }
+            $password = $randomString;
+            
+            $query = "INSERT INTO startups_accounts (username, password, role, startup_id) VALUES(
+                        '$username','$password','startup',{$startup_id}      
+                    )";
+            
+            $res = mysqli_query($conn,$query);
+            if(!$res){
+                echo "Error3";
+            }
+            
+            
             header('Location: Startup_description.php?st_id='.$startup_id);
+        }
         else
             echo mysqli_error($conn);
     }
@@ -183,8 +230,5 @@
 
 ?> 
   
-
-  
-
 
 <?php include('includes/footer.php') ?>
