@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <?php include('includes/db.php') ?>
+=======
+<?php include('includes/db.php'); ?>
+>>>>>>> 4aaccd38ef9de4a6805047f77e6fa347f6c9538f
 <?php include('includes/header.php') ?>
 <style type="text/css">
     .des{
@@ -34,7 +38,9 @@
     <!-- /container -->
   </div>
   <!-- /blue -->
-
+<?php 
+    $query = "SELECT * FROM startup_applications";
+?>
 
   <!-- *****************************************************************************************************************
      AGENCY ABOUT
