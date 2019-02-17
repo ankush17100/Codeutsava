@@ -35,6 +35,7 @@
         $startup_name = $r['startup_name'];
         $startup_contact = $r['startup_contact'];
         $startup_email = $r['startup_email'];
+        $selected = $r['selected'];
         $query2 = "SELECT * FROM founders_applications WHERE application_id = $startup_id ORDER BY founders_id LIMIT 1 ";
         
         $res2 = mysqli_query($conn,$query2);
@@ -51,6 +52,7 @@
             <span><strong>Founder's Name:&nbsp;&nbsp;</strong></span><h4 style="display:inline"><?php echo $founder_name ?></h4><br>
             <span><strong>Email ID:&nbsp;&nbsp;&nbsp;</strong></span><h4 style="display:inline"><?php echo $startup_email ?></h4><br>
             <span><strong>Contact Number:&nbsp;&nbsp;</strong></span><h4 style="display:inline"><?php echo $startup_contact ?></h4><br>
+            <span><strong>SELECTED:&nbsp;&nbsp;</strong></span><h4 style="display:inline"><?php echo $selected ?></h4><br>
             <a href = 'Startup_description.php?st_id=<?php echo $startup_id ?>'><button class="btn btn-primary" type="button">View</button></a>
         </div>
     </div>

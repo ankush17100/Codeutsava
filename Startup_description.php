@@ -1,8 +1,5 @@
-<<<<<<< HEAD
+
 <?php include('includes/db.php') ?>
-=======
-<?php include('includes/db.php'); ?>
->>>>>>> 4aaccd38ef9de4a6805047f77e6fa347f6c9538f
 <?php include('includes/header.php') ?>
 <style type="text/css">
     .des{
@@ -107,12 +104,29 @@
         
         <p><u><h4>DIPP NUMBER</h4></u></p>
         <p class="des"><b><?php echo $r['DIPP_NUMBER']?></b></p>
+        <p class="des"><b>Verified:<?php echo $r['startup_verified'] ?> &nbsp;&nbsp;&nbsp; <a href="Startup_description.php?verify=<?php echo $startup_id ?>">Verify</a></b></p>
         
         <p><u><h4>Website</h4></u></p>
         <p class="des"><b><a href="<?php echo $r['startup_website_link'].'">'.$r['startup_website_link'] ?></a></b></p>
         
         <p><u><h4>Startup Category</h4></u></p>
         <p class="des"><b><?php echo $r['startup_category']?></b></p>
+        
+        <p class="des"><b>Shortlisted:<?php echo $r['shortlisted'] ?> &nbsp;&nbsp;&nbsp;</b></p>
+        <?php if($r['shortlisted']=='NO' && $r['startup_verified']=='YES'){ ?>
+        <form action="Startup_description.php" method="post" >
+            <input type="date" name = "interview_date">
+            <input type="time" name = "interview_time">
+            <input type="text" name = "interview_venue" placeholder="Venue">
+            <input type="hidden" name="startup_id" value="<?php echo $startup_id ?>">
+            <input type="submit" name = "shortlist" value="Shortlist">
+        </form>
+        <?php }?>
+        <br>
+        <br>
+        <?php if($r['shortlisted']=='YES'){ ?>
+        <p class="des"><b>Selected:<?php echo $r['selected'] ?> &nbsp;&nbsp;&nbsp; <a href="Startup_description.php?select=<?php echo $startup_id ?>">SELECT</a></b></p>
+        <?php }?>
         
 <!--        <p><br/><a href="contact.html" class="btn btn-link" style="background-color:yellow;"><b>See Mentor</b></a></p>-->
 <!--        <marquee style="background:yellow">This is for recent updates</esentationmarquee>-->
@@ -122,136 +136,55 @@
   
 <?php }
     }?>
-  <!-- *****************************************************************************************************************
-     TEEAM MEMBERS
-     ***************************************************************************************************************** -->
+    
+<?php
+    if(isset($_GET['verify'])){
+        $startup_id = $_GET['verify'];
+        $query = "UPDATE startup_applications SET startup_verified='YES'";
+        $res = mysqli_query($conn,$query);
+        unset($_GET['verify']);
+        if($res)
+            
+            header('Location: Startup_description.php?st_id='.$startup_id);
+        else
+            echo mysqli_error($conn);
+    }
 
-  <div class="container mtb">
-    <div class="row centered">
-      <h3 class="mb">MEET OUR TEAM</h3>
+    if(isset($_GET['select'])){
+        $startup_id = $_GET['select'];
+        $query = "UPDATE startup_applications SET selected='YES'";
+        $res = mysqli_query($conn,$query);
+        unset($_GET['select']);
+        if($res)
+            header('Location: Startup_description.php?st_id='.$startup_id);
+        else
+            echo mysqli_error($conn);
+    }
 
-      <div class="col-lg-3 col-md-3 col-sm-3">
-        <div class="he-wrap tpl6">
-          <img src="G:/xampp/htdocs/team01.jpg" alt="" height="100px" width="100px">
-          <div class="he-view">
-            <div class="bg a0" data-animate="fadeIn">
-              <h3 class="a1" data-animate="fadeInDown">Contact Me:</h3>
-              <a href="#" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-envelope"></i></a>
-              <a href="#" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-twitter"></i></a>
-            </div>
-            <!-- he bg -->
-          </div>
-          <!-- he view -->
-        </div>
-        <!-- he wrap -->
-        <h4>Mark Webber</h4>
-        <h5 class="ctitle">CEO</h5>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-        <div class="hline"></div>
-      </div>
 
-      <div class="col-lg-3 col-md-3 col-sm-3">
-        <div class="he-wrap tpl6">
-          <img src="team01.jpg" alt="">
-          <div class="he-view">
-            <div class="bg a0" data-animate="fadeIn">
-              <h3 class="a1" data-animate="fadeInDown">Contact Me:</h3>
-              <a href="#" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-envelope"></i></a>
-              <a href="#" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-twitter"></i></a>
-            </div>
-            <!-- he bg -->
-          </div>
-          <!-- he view -->
-        </div>
-        <!-- he wrap -->
-        <h4>Paul Jameson</h4>
-        <h5 class="ctitle">LEAD DESIGNER</h5>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-        <div class="hline"></div>
-      </div>
+    if(isset($_POST['shortlist'])){
+        $startup_id = $_POST['startup_id'];
+        $interview_date = $_POST['interview_date'];
+        $interview_time = $_POST['interview_time'];
+        $interview_venu = $_POST['interview_venue'];
+        $query = "UPDATE startup_applications SET shortlisted='YES', interview_date = '{$interview_date}', interview_time='{$interview_time}', 
+            interview_venu = '{$interview_venu}' ";
+        $res = mysqli_query($conn,$query);
+        if($res){
+            unset($_POST['shortlist']);
+            header('Location: Startup_description.php?st_id='.$startup_id);
+        }
+        else
+            echo mysqli_error($conn);
+    }
 
-      <div class="col-lg-3 col-md-3 col-sm-3">
-        <div class="he-wrap tpl6">
-          <img src="team01.jpg" alt="">
-          <div class="he-view">
-            <div class="bg a0" data-animate="fadeIn">
-              <h3 class="a1" data-animate="fadeInDown">Contact Me:</h3>
-              <a href="#" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-envelope"></i></a>
-              <a href="#" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-twitter"></i></a>
-            </div>
-            <!-- he bg -->
-          </div>
-          <!-- he view -->
-        </div>
-        <!-- he wrap -->
-        <h4>Laura Sommers</h4>
-        <h5 class="ctitle">LEAD DEVELOPER</h5>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-        <div class="hline"></div>
-      </div>
+    
 
-      <div class="col-lg-3 col-md-3 col-sm-3">
-        <div class="he-wrap tpl6">
-          <img src="team01.jpg" alt="">
-          <div class="he-view">
-            <div class="bg a0" data-animate="fadeIn">
-              <h3 class="a1" data-animate="fadeInDown">Contact Me:</h3>
-              <a href="#" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-envelope"></i></a>
-              <a href="#" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-twitter"></i></a>
-            </div>
-            <!-- he bg -->
-          </div>
-          <!-- he view -->
-        </div>
-        <!-- he wrap -->
-        <h4>Martin Blunt</h4>
-        <h5 class="ctitle">MARKETING</h5>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-        <div class="hline"></div>
-      </div>
 
-    </div>
-  </div>
+?> 
+  
 
-  <!-- *****************************************************************************************************************
-     TESTIMONIALS
-     ***************************************************************************************************************** -->
-  <div id="twrap">
-    <div class="container centered">
-      <div class="row">
-        <div class="col-lg-8 col-lg-offset-2">
-          <i class="fa fa-comment-o"></i>
-          <p>Entrepreneur with a demonstrated history of working in the information technology and services industry. Juggling between startups that are in the process of making a dent to the industry and a running a full stack software development firm that is serving some of the biggest names in Government and Private sectors. Skilled in Negotiation, Public Speaking, and good at programming in Java. Strong entrepreneurship professional with a Bachelor of Engineering (BE) focused in Computer Science and a programmer at heart.</p>
-          <h4><br/>Puru Agrawal</h4>
-          <p>CEO BlueBanyan</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- *****************************************************************************************************************
-     OUR CLIENTS
-     ***************************************************************************************************************** -->
-  <div id="cwrap">
-    <div class="container">
-      <div class="row centered">
-        <h3>Top Services</h3>
-        <div class="col-lg-3 col-md-3 col-sm-3">
-          <p class="tr"><b>Website Development</b></p>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-3">
-          <p class="tr"><b>Digital Marketing</b></p>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-3">
-          <p class="tr"><b>Facebook Marketing</b></p>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-3">
-          <p class="tr"><b>PPR Advertising</b></p>
-        </div>
-      </div>
-    </div>
-  </div>
-
+  
 
 
 <?php include('includes/footer.php') ?>
